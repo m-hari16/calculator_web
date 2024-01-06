@@ -1,9 +1,12 @@
 import { useState } from "react";
 import Display from "../components/display/Display";
 import { keyPad } from "../data/keyPad";
+import { numberToWords } from "../utils/numberToWords";
 
 const Calculator = () => {
   const [display, setDisplay] = useState("")
+  const [isConvertDisable, setDisableConverter] = useState(true)
+  const [isKeyPadDisable, setDisableKeyPad] = useState(false) 
 
   function updateDisplay (val) {
     const newVal = val === "x" ? "*" : val
@@ -22,8 +25,29 @@ const Calculator = () => {
 
   function calculate () {
     if (display !== "" && ! /[+x\/-]$/.test(display)) {
+      setDisableConverter(false)
       const result = eval(display)
       setDisplay(result)
+    }
+  }
+
+  function convert () {
+    if (! /^[+x\/-]$/.test(display)) {
+      setDisableConverter(true)
+      setDisableKeyPad(true)
+      setDisplay(numberToWords(display))
+    }
+  }
+
+  function handleKeyPad (item) {
+    if (item === "C") {
+      setDisplay("")
+      setDisableKeyPad(false)
+      setDisableConverter(true)
+    } else if (item === "=") {
+      calculate()
+    } else {
+      updateDisplay(item)
     }
   }
 
@@ -37,7 +61,8 @@ const Calculator = () => {
           keyPad.flat().map((item, i) => (
             <button
               key={i}
-              onClick={() => item === "C" ? setDisplay("") : item === "=" ? calculate() : updateDisplay(item)}
+              disabled={item !== "C" ? isKeyPadDisable : false}
+              onClick={() => handleKeyPad(item)}
               className={`bg-[#fa980b] py-5 px-4 text-xl lg:text-2xl text-white font-semibold rounded-md hover:bg-yellow-600`}
             >
               {item}
@@ -48,6 +73,8 @@ const Calculator = () => {
 
       <div className="grid grid-cols-1 pt-4">
         <button
+          disabled={isConvertDisable}
+          onClick={() => convert()}
           className={`bg-gray-600 py-5 px-4 text-xl lg:text-2xl text-white font-semibold rounded-md hover:bg-gray-700`}
         >
           To Text
