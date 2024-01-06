@@ -6,7 +6,7 @@ const NavbarSection = ({navList}) => {
   const [isMenuOpen, setMenu] = useState(false);
 
   return(
-    <nav className="flex bg-white justify-between items-center w-full px-[3%] h-16 py-1 shadow-md lg:px-[12%] lg:h-24 lg:py-5">
+    <nav className="flex bg-white justify-between items-center w-full px-[3%] h-16 py-1 shadow-md lg:px-[12%] lg:h-20 lg:py-4">
       <NavLink to={'/'}>
         <img
           src={LogoBase}
