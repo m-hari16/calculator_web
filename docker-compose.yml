@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  company-profile-deven:
+    image: "mhari16/calculator-web:0.0.1"
+    container_name: "calculator-web"
+    expose:
+      - 80
+    networks:
+      - app
+
+networks:
+  app:
+    external: true
