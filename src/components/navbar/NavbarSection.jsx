@@ -17,7 +17,7 @@ const NavbarSection = ({navList}) => {
 
       <div className='hidden lg:flex items-center gap-9'>
         {
-          navList.map((item, idx) => (
+          navList?.map((item, idx) => (
             <NavLink
               key={idx}
               to={item.route}
@@ -76,7 +76,7 @@ const NavbarSection = ({navList}) => {
         isMenuOpen && (
           <div className="absolute z-10 top-16 bottom-0 left-0 right-0 bg-custom-400 px-[4%]">
             <div className="flex flex-col space-y-3 pt-4">
-              {navList.map((item, idx) => (
+              {navList?.map((item, idx) => (
                 <NavLink
                     key={idx}
                     to={item.route}
