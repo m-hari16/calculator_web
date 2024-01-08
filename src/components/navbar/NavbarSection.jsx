@@ -2,8 +2,9 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { LogoBase } from '../../assets';
 
-const NavbarSection = ({navList}) => {
+const NavbarSection = ({navList, handleLogout}) => {
   const [isMenuOpen, setMenu] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'))
 
   return(
     <nav className="flex bg-white justify-between items-center w-full px-[3%] h-16 py-1 shadow-md lg:px-[12%] lg:h-20 lg:py-4">
@@ -29,6 +30,18 @@ const NavbarSection = ({navList}) => {
             </NavLink>
           ))
         }
+        {
+          isLoggedIn && (
+          <button
+            type='button'
+            onClick={handleLogout} 
+            className='text-sm font-semibold'
+          >
+            Logout
+          </button>        
+          )
+        }
+        
       </div>
       <div 
         className="lg:hidden"
