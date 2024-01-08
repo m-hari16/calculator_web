@@ -9,7 +9,7 @@ const BaseLayout = ({children}) => {
   const handleLogout = async () => {
     const toApi = await logout({token: token})
     if(toApi.success) {
-      localStorage.removeItem(token)
+      localStorage.removeItem('token')
       navigate("/login")
     }
   }
